@@ -21,10 +21,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapGet("suppshopproducts", async (SuppShopContext db) =>
+app.MapGet("products", async (SuppShopContext db) =>
 await db.Products.ToListAsync());
 
-app.MapPost("suppshopproducts", async (ProductRequest request, SuppShopContext db) =>
+app.MapPost("products", async (ProductRequest request, SuppShopContext db) =>
 {
     var product = new Product
     { 
@@ -37,10 +37,10 @@ app.MapPost("suppshopproducts", async (ProductRequest request, SuppShopContext d
     db.Products.Add(product);
     await db.SaveChangesAsync();
 
-    return Results.Created($"/suppshopproducts/{product.Id}", product);
+    return Results.Created($"/products/{product.Id}", product);
 });
 
-app.MapPut("suppshopproducts/{id:int}", async (int id, ProductRequest request, SuppShopContext db) =>
+app.MapPut("products/{id:int}", async (int id, ProductRequest request, SuppShopContext db) =>
 {
     var product = await db.Products.FindAsync(id);
 
@@ -59,7 +59,7 @@ app.MapPut("suppshopproducts/{id:int}", async (int id, ProductRequest request, S
     return Results.Ok(product);
 });
 
-app.MapDelete("suppshopproducts/{id:int}", async (int id, SuppShopContext db) =>
+app.MapDelete("products/{id:int}", async (int id, SuppShopContext db) =>
 {
     var product = await db.Products.FindAsync(id);
 
